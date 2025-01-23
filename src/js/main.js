@@ -1,6 +1,7 @@
 import ProductData from "./ProductData.mjs";
 
 import ProductListing from "./productList.mjs";
+import { loadHeaderFooter } from './utils.mjs'; 
 
 const dataSource = new ProductData("tents");
 console.log(dataSource);
@@ -23,5 +24,8 @@ const productList = new ProductListing(
   productData,
   example,
 );
+
+loadHeaderFooter();
 productList.init();
+
 

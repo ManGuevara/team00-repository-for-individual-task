@@ -39,13 +39,35 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
   parentElement.insertAdjacentHTML  (position, htmlStrings.join(""));
 }
 
-export function renderWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false)
+export function renderWithTemplate(templateFn, parent, data, callback)
 {
-  const htmlStrings = list.map(templateFn);
-  if(clear){
-    parentElement.innerHTML = " ";
+    parent.insertAdjacentHTML("afetrbegin", templateFn);
+    if (callback) {
+      callback(data);
+    }
   }
-  parentElement.insertAdjacentHTML  (position, htmlStrings.join(""));
+ 
+
+export async function loadTemplate(path) {
+  //make a request fetch to the path and convert it to text
+  const html = await fetch(path).then(convertToText);
+  //creeate an element <template> where to save the HTML content
+  const template= document.createElement("template");
+  //stablish the template content with the HTML logged
+  template.innerHTML = html;
+  //returns the content from template, that now has the HTML content
+  return template;
+}
+
+// function to dynamically load the header and footer into a page
+export async function loadHeaderFooter(){
+  const headerTemplate =await loadTemplate("../partials/header.html");
+  const headerElement = document.querySelector("#main_header");
+  const footerTemplate = await loadTemplate("../partials/footer.html");
+  const footerElement = document.querySelector("#main_footer");
+
+  renderWithTemplate(headerTemplate, headerElement);
+  renderWithTemplate(footerTemplate, footerElement);
 }
 
 // export function renderListWithTemplate(productCardTemplate, parentElement, list, position = "afterbegin", clear = false) {
