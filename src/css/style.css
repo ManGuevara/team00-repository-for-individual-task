@@ -165,6 +165,21 @@ button {
 .card__name {
   font-size: 1em;
 }
+.elements_container {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap:10px;
+margin: 0 auto;
+}
+.elements_container a {
+  display: flex;
+  flex-direction: column; /* Apila imagen y texto verticalmente */
+  align-items: center; /* Centra horizontalmente */
+}
+.elements_container img {
+  width: 200px;
+
+}
 /* End product list card */
 
 .product-detail {
