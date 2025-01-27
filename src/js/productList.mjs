@@ -35,7 +35,7 @@ export function productCardTemplate(product) {
         </li>`
         return newItem;
     }
-    
+   
     
 }
 
