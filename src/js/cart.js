@@ -1,4 +1,7 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, loadHeaderFooter } from "./utils.mjs";
+
+
+loadHeaderFooter();
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart") || [];
@@ -31,14 +34,20 @@ function cartItemTemplate(item) {
 
 //funtion to update the a number in the backpack
 function updateCartCount() {
+  console.log('eejecutando updatecartcount');
+  
   //obtain the articles from localstorage
   const cartItems = getLocalStorage("so-cart") || [];
   //calculate the total items
   const totalItems = cartItems.length;
+  console.log("totalItems: ",totalItems);
+  
   //update the number in the html element with the"cart-count" class
   const cartCountElement = document.querySelector(".cart-count");
+  console.log("cartCountElement: ",cartCountElement);
+  
   if (cartCountElement) {
-    cartCountElement.textContent = totalItems;
+    cartCountElement.innerHTML = totalItems;
   }
 }
 function removeCartItem(event) {
@@ -67,9 +76,10 @@ function removeCartItem(event) {
 }
 // renderCartContents();
 renderCartContents();
+
 //Event listener to remove item from Local Storage. It needs to be outside so that the event is put, after the whole page is rendered.
 const removeButtons = document.querySelectorAll(".remove-button");
 removeButtons.forEach((button) => {
   button.addEventListener("click", removeCartItem);
 });
-updateCartCount();
+// updateCartCount();

@@ -38,14 +38,62 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
   }
   parentElement.insertAdjacentHTML  (position, htmlStrings.join(""));
 }
-// export function renderListWithTemplate(productCardTemplate, parentElement, list, position = "afterbegin", clear = false) {
-//   if (clear == true) {
-//     while (parentElement.hasChildNodes()) {
-//       parentElement.removeChild(parentElement.firstChild);
-//     }
-//   } else {
-//     const newList = list;
-//     parentElement.insertAdjacentHTML(position, newList.map((item) => productCardTemplate(item)).join(""));
-//   }
 
-// }
+export function renderWithTemplate(template, parentElement, data, callback)
+{
+  // console.log(template);
+  
+  parentElement.insertAdjacentHTML("afterbegin", template);
+    if (callback) {
+      callback(data);
+    }
+  }
+
+export async function loadTemplate(path) {
+ const res = await fetch(path);
+//  console.log(res);
+ const templateContent =await res.text();
+//  console.log(templateContent);
+ //const  template =document.createElement("template");
+ //template.innerHTML = templateContent;
+ return templateContent;
+}
+
+//funtion to update the a number in the backpack
+export function updateCartCount() {
+  //obtain the articles from localstorage
+  const cartItems = getLocalStorage("so-cart") || [];
+  //calculate the total items
+  const totalItems =cartItems.length;
+  //update the number in the html element with the"cart-count" class
+  const cartCountElement = document.querySelector(".cart-count");
+  if (cartCountElement) {
+    cartCountElement.textContent = totalItems;
+  }
+}
+
+// function to dynamically load the header and footer into a page
+export async function loadHeaderFooter(){
+  const headerTemplate =await loadTemplate("../partials/header.html");
+  const headerElement = document.querySelector("#main_header")
+  const footerTemplate = await loadTemplate("../partials/footer.html");
+  const footerElement = document.querySelector("#main_footer")
+
+  // console.log("headerElement.innerHTML: ",headerElement.innerHTML)
+  // console.log("footerElement.innerHTML: ",footerElement.innerHTML)
+
+  if(headerElement.innerHTML == ''){
+    console.log('header---');
+    
+    renderWithTemplate(headerTemplate, headerElement);
+    updateCartCount()
+  }
+
+  
+  if(footerElement.innerHTML == ''){
+    renderWithTemplate(footerTemplate, footerElement);
+  }
+
+  
+  
+}

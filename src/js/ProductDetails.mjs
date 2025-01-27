@@ -1,18 +1,7 @@
 import { setLocalStorage } from "./utils.mjs";
 import { getLocalStorage } from "./utils.mjs";
 
-//funtion to update the a number in the backpack
-function updateCartCount() {
-  //obtain the articles from localstorage
-  const cartItems = getLocalStorage("so-cart") || [];
-  //calculate the total items
-  const totalItems =cartItems.length;
-  //update the number in the html element with the"cart-count" class
-  const cartCountElement = document.querySelector(".cart-count");
-  if (cartCountElement) {
-    cartCountElement.textContent = totalItems;
-  }
-}
+import{updateCartCount} from './utils.mjs'
 
 export default class ProductDetails {
   constructor(productId, dataSource) {
@@ -23,7 +12,7 @@ export default class ProductDetails {
 
   async init() {
     // use our datasource to get the details for the current product. findProductById will return a promise! use await or .then() to process it
-   console.log(this.productId);
+  //  console.log(this.productId);
     this.product = await this.dataSource.findProductById(this.productId);
     // once we have the product details we can render out the HTML
     this.renderProductDetails(this.product);
@@ -45,7 +34,7 @@ export default class ProductDetails {
 //probando
 //probando2
   renderProductDetails(product) {
-    console.log(product)
+    // console.log(product)
     const html = document.querySelector(".product-detail")
     const newProduct = `<section class="product-detail">
         <h3>${product.Brand.Name}</h3>
@@ -71,4 +60,4 @@ export default class ProductDetails {
     html.innerHTML = newProduct;
   }
 }
-updateCartCount()
+// updateCartCount()
