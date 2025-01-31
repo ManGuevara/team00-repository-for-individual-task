@@ -4,7 +4,7 @@ import ProductListing from "./productList.mjs";
 import { loadHeaderFooter } from './utils.mjs'; 
 
 const dataSource = new ProductData("tents");
-// console.log(dataSource);
+console.log(dataSource);
 
 // dataSource.getData().then(products => {
     // console.log(products)

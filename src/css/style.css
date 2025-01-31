@@ -175,6 +175,7 @@ margin: 0 auto;
   display: flex;
   flex-direction: column; /* Apila imagen y texto verticalmente */
   align-items: center; /* Centra horizontalmente */
+  text-decoration: none;
 }
 .elements_container img {
   width: 200px;
